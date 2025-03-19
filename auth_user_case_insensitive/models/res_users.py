@@ -11,12 +11,12 @@ class ResUsers(models.Model):
     login = fields.Char(help="Used to log into the system. Case insensitive.")
 
     @classmethod
-    def _login(cls, db, login, password, user_agent_env):
+    def _login(cls, db, credential, user_agent_env):
         """Overload _login to lowercase the `login` before passing to the
         super."""
-        login = login.lower()
+        login = credential['login'].lower()
         return super(ResUsers, cls)._login(
-            db, login, password, user_agent_env=user_agent_env
+            db, credential, user_agent_env=user_agent_env
         )
 
     @api.model_create_multi
